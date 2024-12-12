@@ -13,22 +13,13 @@ pipeline {
                 checkout scm
             }
         }
+    
         stage('Install Dependencies') {
             steps {
                 echo "Installation des dépendances..."
                 sh '''
                 python3 -m pip install --upgrade pip
                 python3 -m pip install -r app/requirements.txt
-                '''
-            }
-        }
-
-        stage('Install Dependencies') {
-            steps {
-                echo "Installation des dépendances..."
-                sh '''
-                pip install --upgrade pip
-                pip install -r app/requirements.txt
                 '''
             }
         }
@@ -70,7 +61,7 @@ pipeline {
             }
         }
     }
-    
+
     post {
         always {
             echo "Archivage des résultats de tests..."
