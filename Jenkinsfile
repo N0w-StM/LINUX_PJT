@@ -18,8 +18,8 @@ pipeline {
             steps {
                 echo "Installation des dépendances..."
                 sh '''
-                pip install --upgrade pip
-                pip install -r app/requirements.txt
+                pip3 install --upgrade pip3
+                pip3 install -r app/requirements.txt
                 '''
             }
         }
