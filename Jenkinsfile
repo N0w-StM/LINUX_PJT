@@ -14,7 +14,14 @@ pipeline {
                 checkout scm
             }
         }
+        stage('Sonar Check') {
+            def Scanner = tool 'sonar';
+            withSonarQubeEnv(){
+                sh '${Scanner}/bin/sonar-scanner --version'
+            }
 
+            }
+        }
         stage('SonarQube Analysis') {
             steps {
                 echo 'Running SonarQube analysis...'
