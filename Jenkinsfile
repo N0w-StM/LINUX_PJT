@@ -18,6 +18,7 @@ pipeline {
             steps {
                 echo "Installation des dépendances..."
                 sh '''
+                python3 install pip3
                 pip3 install --upgrade pip3
                 pip3 install -r app/requirements.txt
                 '''
