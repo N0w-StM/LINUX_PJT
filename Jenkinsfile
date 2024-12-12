@@ -20,6 +20,7 @@ pipeline {
                 sh '''
                 python3 -m venv ./app/
                 ls ./app/bin/
+                cd app/bin/
                 pip3 install -r app/requirements.txt
                 '''
             }
@@ -29,7 +30,7 @@ pipeline {
             steps {
                 echo "Exécution des tests unitaires..."
                 sh '''
-                cd app
+                cd ..
                 pytest --junitxml=results.xml
                 '''
             }
