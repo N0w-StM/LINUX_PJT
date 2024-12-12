@@ -14,19 +14,12 @@ pipeline {
                 checkout scm
             }
         }
-        stage('Sonar Check') {
-            def Scanner = tool 'sonar';
-            withSonarQubeEnv(){
-                sh '${Scanner}/bin/sonar-scanner --version'
-            }
-
-            }
         stage('SonarQube Analysis') {
             steps {
                 echo 'Running SonarQube analysis...'
                 withSonarQubeEnv('SONAR-KEY') {
                     sh '''
-                    sonar-scanner \
+                    sonar \
                       -Dsonar.projectKey=SONAR-KEY \
                       -Dsonar.sources=. \
                       -Dsonar.host.url=$SONAR_URL \
