@@ -18,7 +18,6 @@ pipeline {
             steps {
                 echo "Installation des dépendances..."
                 sh '''
-                sudo apt install python3.11-venv
                 python3 -m venv ./app/
                 source ./app/bin/activate
                 pip3 install -r app/requirements.txt
