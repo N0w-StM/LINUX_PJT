@@ -1,11 +1,18 @@
-
 pipeline {
     agent any
 
     environment {
+       
+    }
+
+  pipeline {
+    agent any
+
+    environment {
         // Replace this with your SonarQube server details
-         SONAR_URL = 'http://localhost:9000'
-        SONAR_TOKEN = 'sqa_0efceaee176c2f4597209d9290c145bb473d8c9c' // Replace with your SonarQube project key
+        SONAR_URL = 'http://your-sonarqube-server:9000'
+        SONAR_TOKEN = 'your_sonar_token' // Replace with your SonarQube token
+        SONAR_PROJECT_KEY = 'SONAR-KEY' // Replace with your SonarQube project key
     }
 
     stages {
@@ -16,7 +23,6 @@ pipeline {
             }
         }
 
-        
         stage('SonarQube Analysis') {
             steps {
                 echo 'Running SonarQube analysis...'
