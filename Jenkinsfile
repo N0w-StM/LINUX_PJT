@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     environment {
-        SONAR_URL = 'http://llinux_pjt-sonarqube:9000'
+        SONAR_URL = 'http://sonarqube:9000'
         SONAR_TOKEN = 'sqa_0efceaee176c2f4597209d9290c145bb473d8c9c'
         SONAR_PROJECT_KEY = 'SONAR-KEY'
     }
