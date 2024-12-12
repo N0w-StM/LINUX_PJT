@@ -19,7 +19,7 @@ pipeline {
                 echo 'Running SonarQube analysis...'
                 withSonarQubeEnv('SONAR-KEY') {
                     sh '''
-                    sonar \
+                    sonar-scanner \
                       -Dsonar.projectKey=SONAR-KEY \
                       -Dsonar.sources=. \
                       -Dsonar.host.url=$SONAR_URL \
