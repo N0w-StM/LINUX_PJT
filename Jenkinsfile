@@ -19,7 +19,7 @@ pipeline {
         stage('SonarQube Analysis') {
             steps {
                 echo 'Running SonarQube analysis...'
-                withSonarQubeEnv('SonarQube') { // Jenkins needs a SonarQube server setup in "Manage Jenkins"
+                withSonarQubeEnv('SONAR-KEY') { // Jenkins needs a SonarQube server setup in "Manage Jenkins"
                     sh '''
                     sonar-scanner \
                       -Dsonar.projectKey='SONAR-KEY' \
