@@ -22,10 +22,10 @@ pipeline {
                 withSonarQubeEnv('SonarQube') { // Jenkins needs a SonarQube server setup in "Manage Jenkins"
                     sh '''
                     sonar-scanner \
-                      -Dsonar.projectKey=${SONAR_PROJECT_KEY} \
+                      -Dsonar.projectKey='SONAR-KEY' \
                       -Dsonar.sources=. \
-                      -Dsonar.host.url=${SONAR_URL} \
-                      -Dsonar.login=${SONAR_TOKEN}
+                      -Dsonar.host.url='http://localhost:9000' \
+                      -Dsonar.login='sqa_0efceaee176c2f4597209d9290c145bb473d8c9c'
                     '''
                 }
             }
