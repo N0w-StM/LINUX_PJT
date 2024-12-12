@@ -2,30 +2,40 @@ pipeline {
     agent any
 
     environment {
-        // Replace this with your SonarQube server details
         SONAR_URL = 'http://localhost:9000'
-        SONAR_TOKEN = 'sqa_0efceaee176c2f4597209d9290c145bb473d8c9c' // Replace with your SonarQube token
-        SONAR_PROJECT_KEY = 'SONAR-KEY' // Replace with your SonarQube project key
+        SONAR_TOKEN = 'sqa_0efceaee176c2f4597209d9290c145bb473d8c9c'
+        SONAR_PROJECT_KEY = 'SONAR-KEY'
     }
 
     stages {
         stage('Checkout Code') {
             steps {
-                echo 'Checking out the source code...'
+                echo 'Checking out source code...'
                 checkout scm
+            }
+        }
+
+        stage('Install SonarScanner') {
+            steps {
+                echo 'Installing SonarScanner CLI...'
+                sh '''
+                curl -o /tmp/sonar-scanner.zip https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-5.0.1.3006-linux.zip
+                unzip /tmp/sonar-scanner.zip -d /opt
+                ln -s /opt/sonar-scanner-5.0.1.3006-linux/bin/sonar-scanner /usr/local/bin/sonar-scanner
+                '''
             }
         }
 
         stage('SonarQube Analysis') {
             steps {
                 echo 'Running SonarQube analysis...'
-                withSonarQubeEnv('SONAR-KEY') { // Jenkins needs a SonarQube server setup in "Manage Jenkins"
+                withSonarQubeEnv('SONAR-KEY') {
                     sh '''
                     sonar-scanner \
-                      -Dsonar.projectKey='SONAR-KEY' \
+                      -Dsonar.projectKey=SONAR-KEY \
                       -Dsonar.sources=. \
-                      -Dsonar.host.url='http://localhost:9000' \
-                      -Dsonar.login='sqa_0efceaee176c2f4597209d9290c145bb473d8c9c'
+                      -Dsonar.host.url=$SONAR_URL \
+                      -Dsonar.login=$SONAR_TOKEN
                     '''
                 }
             }
