@@ -2,13 +2,6 @@ pipeline {
     agent any
 
     environment {
-       
-    }
-
-  pipeline {
-    agent any
-
-    environment {
         // Replace this with your SonarQube server details
         SONAR_URL = 'http://your-sonarqube-server:9000'
         SONAR_TOKEN = 'your_sonar_token' // Replace with your SonarQube token
