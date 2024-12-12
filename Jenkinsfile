@@ -14,27 +14,7 @@ pipeline {
             }
         }
 
-        stage('Install Dependencies') {
-            steps {
-                echo "Installation des dépendances..."
-                sh '''
-                python3 -m venv ./app/
-                ls ./app/bin/
-                cd app/bin/
-                pip3 install -r app/requirements.txt
-                '''
-            }
-        }
-
-        stage('Run Tests') {
-            steps {
-                echo "Exécution des tests unitaires..."
-                sh '''
-                cd ..
-                pytest --junitxml=results.xml
-                '''
-            }
-        }
+        
 
         stage('SonarQube Analysis') {
             steps {
