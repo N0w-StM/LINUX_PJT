@@ -18,8 +18,8 @@ pipeline {
             steps {
                 echo "Installation des dépendances..."
                 sh '''
-                sudo apt update
-                sudo apt install python3 python3-pip
+                apt update
+                apt install -y python3 python3-pip
                 python3 -m pip install --upgrade pip
                 python3 -m pip install -r app/requirements.txt
                 '''
