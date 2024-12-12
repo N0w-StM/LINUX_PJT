@@ -19,7 +19,7 @@ pipeline {
                 echo "Installation des dépendances..."
                 sh '''
                 python3 -m venv ./app/
-                source ./app/bin/activate
+                ls ./app/bin/
                 pip3 install -r app/requirements.txt
                 '''
             }
