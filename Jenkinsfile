@@ -3,7 +3,7 @@ pipeline {
 
     environment {
         SONAR_URL = 'http://localhost:9000'
-        SONAR_TOKEN = 'sqa_4e13fd27c5304e8d574b23f0f28445775a441073'
+        SONAR_TOKEN = 'sqa_0efceaee176c2f4597209d9290c145bb473d8c9c'
     }
 
     stages {
@@ -13,15 +13,13 @@ pipeline {
                 checkout scm
             }
         }
-    
+
         stage('Install Dependencies') {
             steps {
                 echo "Installation des dépendances..."
                 sh '''
-                apt update
-                apt install -y python3 python3-pip
-                python3 -m pip install --upgrade pip
-                python3 -m pip install -r app/requirements.txt
+                pip install --upgrade pip
+                pip install -r app/requirements.txt
                 '''
             }
         }
