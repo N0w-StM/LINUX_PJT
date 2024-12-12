@@ -21,7 +21,6 @@ pipeline {
             }
 
             }
-        }
         stage('SonarQube Analysis') {
             steps {
                 echo 'Running SonarQube analysis...'
