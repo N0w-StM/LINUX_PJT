@@ -16,18 +16,7 @@ pipeline {
             }
         }
 
-        stage('Install Dependencies') {
-            steps {
-                echo 'Installing dependencies...'
-                sh '''
-                python3 -m pip install --upgrade pip
-                if [ -f requirements.txt ]; then
-                    python3 -m pip install -r requirements.txt
-                fi
-                '''
-            }
-        }
-
+        
         stage('SonarQube Analysis') {
             steps {
                 echo 'Running SonarQube analysis...'
