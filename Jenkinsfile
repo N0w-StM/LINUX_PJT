@@ -1,31 +1,43 @@
+
 pipeline {
     agent any
 
     environment {
-        SONAR_URL = 'http://localhost:9000'
-        SONAR_TOKEN = 'sqa_0efceaee176c2f4597209d9290c145bb473d8c9c'
+        // Replace this with your SonarQube server details
+         SONAR_URL = 'http://localhost:9000'
+        SONAR_TOKEN = 'sqa_0efceaee176c2f4597209d9290c145bb473d8c9c' // Replace with your SonarQube project key
     }
 
     stages {
         stage('Checkout Code') {
             steps {
-                echo "Clonage du dépôt..."
+                echo 'Checking out the source code...'
                 checkout scm
             }
         }
 
-        
+        stage('Install Dependencies') {
+            steps {
+                echo 'Installing dependencies...'
+                sh '''
+                python3 -m pip install --upgrade pip
+                if [ -f requirements.txt ]; then
+                    python3 -m pip install -r requirements.txt
+                fi
+                '''
+            }
+        }
 
         stage('SonarQube Analysis') {
             steps {
-                echo "Analyse statique avec SonarQube..."
-                withSonarQubeEnv('SonarQube') {
+                echo 'Running SonarQube analysis...'
+                withSonarQubeEnv('SonarQube') { // Jenkins needs a SonarQube server setup in "Manage Jenkins"
                     sh '''
                     sonar-scanner \
-                      -Dsonar.projectKey=secure-project \
-                      -Dsonar.sources=app \
-                      -Dsonar.host.url=$SONAR_URL \
-                      -Dsonar.login=$SONAR_TOKEN
+                      -Dsonar.projectKey=${SONAR_PROJECT_KEY} \
+                      -Dsonar.sources=. \
+                      -Dsonar.host.url=${SONAR_URL} \
+                      -Dsonar.login=${SONAR_TOKEN}
                     '''
                 }
             }
@@ -33,11 +45,11 @@ pipeline {
 
         stage('Quality Gate') {
             steps {
-                echo "Vérification des résultats de l'analyse..."
+                echo 'Checking SonarQube Quality Gate...'
                 script {
                     def qualityGate = waitForQualityGate()
                     if (qualityGate.status != 'OK') {
-                        error "Quality Gate non validé. Analyse échouée."
+                        error "Quality Gate failed: ${qualityGate.status}"
                     }
                 }
             }
@@ -46,9 +58,7 @@ pipeline {
 
     post {
         always {
-            echo "Archivage des résultats de tests..."
-            archiveArtifacts artifacts: '**/results.xml', allowEmptyArchive: true
-            junit 'app/results.xml'
+            echo 'Pipeline completed.'
         }
     }
 }
