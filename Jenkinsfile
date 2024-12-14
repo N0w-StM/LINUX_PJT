@@ -5,6 +5,7 @@ pipeline {
         SONAR_URL = 'http://sonarqube:9000'
         SONAR_TOKEN = 'sqa_7379f9bca1669323bdcec5b722ff87079b18b61d'
         SONAR_PROJECT_KEY = 'SONAR-KEY'
+        VENV_DIR = "${WORKSPACE}/venv"
     }
 
     stages {
@@ -20,9 +21,9 @@ pipeline {
                 echo '[+] Installing Requirements ....'
                 sh '''
                     cd app
-                    python3 -m venv ./venv
-                    source ./venv/bin/activate
-                    pip install -r requirements.txt
+                    python3 -m venv ${VENV_DIR}
+                    ${VENV_DIR}/bin/pip install --upgrade pip
+                    ${VENV_DIR}/bin/pip install -r requirements.txt
                     echo 'installed successfully!'
                 "
                 '''
