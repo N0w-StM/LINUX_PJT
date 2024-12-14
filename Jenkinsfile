@@ -19,9 +19,9 @@ pipeline {
             steps {
                 echo 'Running build inside Docker container...'
                 sh '''
-                docker run --rm -v $(pwd):/app -w /app python:3.12 bash -c "
-                    python -m pip install --upgrade pip &&
-                    pip install -r requirements.txt &&
+                    cd app
+                    python3 -m pip install --upgrade pip
+                    pip install -r requirements.txt
                     echo 'Dependencies installed successfully!'
                 "
                 '''
