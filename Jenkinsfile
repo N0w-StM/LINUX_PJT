@@ -25,7 +25,6 @@ pipeline {
                     ${VENV_DIR}/bin/pip install --upgrade pip
                     ${VENV_DIR}/bin/pip install -r requirements.txt
                     echo 'installed successfully!'
-                "
                 '''
             }
         }
