@@ -15,7 +15,19 @@ pipeline {
             }
         }
 
-        
+        stage('Run in Docker Container') {
+            steps {
+                echo '[+] Installing Requirements ....'
+                sh '''
+                    cd app
+                    python3 -m venv ./venv
+                    source ./venv/bin/activate
+                    pip install -r requirements.txt
+                    echo 'installed successfully!'
+                "
+                '''
+            }
+        }
 
         stage('SonarQube Analysis') {
             steps {
