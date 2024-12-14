@@ -20,8 +20,6 @@ pipeline {
                 echo '[+] Installing Requirements ....'
                 sh '''
                     cd app
-                    python3 -m venv ./vn
-                    source ./vn/bin/activate
                     pip install -r requirements.txt
                     echo 'installed successfully!'
                 "
