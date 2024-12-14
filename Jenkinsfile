@@ -4,6 +4,7 @@ pipeline {
         docker {
             image 'python:3.12'
         }
+    }
 
     environment {
         SONAR_URL = 'http://sonarqube:9000'
