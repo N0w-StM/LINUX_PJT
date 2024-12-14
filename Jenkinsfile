@@ -17,12 +17,12 @@ pipeline {
 
         stage('Run in Docker Container') {
             steps {
-                echo 'Running build inside Docker container...'
+                echo '[+] Installing Requirements ....'
                 sh '''
                     cd app
                     python3 -m pip install --upgrade pip
                     pip install -r requirements.txt
-                    echo 'Dependencies installed successfully!'
+                    echo 'installed successfully!'
                 "
                 '''
             }
