@@ -3,7 +3,7 @@ pipeline {
 
     environment {
         SONAR_URL = 'http://sonarqube:9000'
-        SONAR_TOKEN = 'sqa_0efceaee176c2f4597209d9290c145bb473d8c9c'
+        SONAR_TOKEN = 'sqa_7379f9bca1669323bdcec5b722ff87079b18b61d'
         SONAR_PROJECT_KEY = 'SONAR-KEY'
     }
 
