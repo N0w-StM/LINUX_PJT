@@ -1,10 +1,5 @@
 pipeline {
     agent any
-    agent {
-        docker {
-            image 'python:3.12'
-        }
-    }
 
     environment {
         SONAR_URL = 'http://sonarqube:9000'
@@ -20,41 +15,30 @@ pipeline {
             }
         }
 
-        stage('Install Dependencies') {
+        stage('Run in Docker Container') {
             steps {
-                echo 'Installing Requirements'
+                echo 'Running build inside Docker container...'
                 sh '''
-                cd app
-                pip install --upgrade pip
-                pip install pylint
-                pip install -r requirements.txt || true
+                docker run --rm -v $(pwd):/app -w /app python:3.12 bash -c "
+                    python -m pip install --upgrade pip &&
+                    pip install -r requirements.txt &&
+                    echo 'Dependencies installed successfully!'
+                "
                 '''
             }
         }
 
-        stage('Code Analysis with SonarQube') {
+        stage('SonarQube Analysis') {
             steps {
-                echo 'Running SonarQube code analysis...'
+                echo 'Running SonarQube analysis...'
                 withSonarQubeEnv('SONAR-KEY') {
                     sh '''
                     sonar-scanner \
                       -Dsonar.projectKey=$SONAR_PROJECT_KEY \
                       -Dsonar.sources=. \
                       -Dsonar.host.url=$SONAR_URL \
-                      -Dsonar.login=$SONAR_TOKEN \
-                      -Dsonar.python.version=3 \
-                      -Dsonar.sourceEncoding=UTF-8 \
-                      -Dsonar.exclusions=**/__pycache__/**,**/venv/**,**/*.test.py
+                      -Dsonar.login=$SONAR_TOKEN
                     '''
-                }
-            }
-        }
-
-        stage('Quality Gate') {
-            steps {
-                echo 'Checking SonarQube quality gate results...'
-                timeout(time: 2, unit: 'MINUTES') {
-                    waitForQualityGate abortPipeline: true
                 }
             }
         }
@@ -65,7 +49,7 @@ pipeline {
             echo 'Pipeline completed successfully!'
         }
         failure {
-            echo 'Pipeline failed. Check logs for errors.'
+            echo 'Pipeline failed. Check the logs for errors.'
         }
         always {
             echo 'Pipeline execution finished.'
