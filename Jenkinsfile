@@ -15,17 +15,7 @@ pipeline {
             }
         }
 
-        stage('Run in Docker Container') {
-            steps {
-                echo '[+] Installing Requirements ....'
-                sh '''
-                    cd app
-                    pip install -r requirements.txt
-                    echo 'installed successfully!'
-                "
-                '''
-            }
-        }
+        
 
         stage('SonarQube Analysis') {
             steps {
