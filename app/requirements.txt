@@ -1,9 +1,4 @@
 pytest
-platform
-time
-json
 PyQt5
 reportlab
-sys
 cryptography
-sqlite3
