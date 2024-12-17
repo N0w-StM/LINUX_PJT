@@ -16,7 +16,7 @@ pipeline {
             }
         }
 
-        stage('Run in Docker Container') {
+        stage('Installing REQ') {
             steps {
                 echo '[+] Installing Requirements ....'
                 sh '''
