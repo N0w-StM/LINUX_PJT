@@ -4,7 +4,7 @@ pipeline {
     environment {
         SONAR_URL = 'http://sonarqube:9000'
         SONAR_TOKEN = 'sqa_7379f9bca1669323bdcec5b722ff87079b18b61d'
-        SONAR_PROJECT_KEY = 'SONAR-KEY'
+        SONAR_PROJECT_KEY = 'TRY'
         VENV_DIR = "${WORKSPACE}/venv"
     }
 
