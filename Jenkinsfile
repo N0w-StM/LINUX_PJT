@@ -16,18 +16,6 @@ pipeline {
             }
         }
 
-        stage('Installing REQ') {
-            steps {
-                echo '[+] Installing Requirements ....'
-                sh '''
-                    cd app
-                    python3 -m venv ${VENV_DIR}
-                    ${VENV_DIR}/bin/pip install --upgrade pip
-                    ${VENV_DIR}/bin/pip install -r requirements.txt
-                    echo 'installed successfully!'
-                '''
-            }
-        }
 
         stage('SonarQube Analysis') {
             steps {
