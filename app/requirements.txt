@@ -1,4 +1,0 @@
-pytest
-PyQt5
-reportlab
-cryptography
