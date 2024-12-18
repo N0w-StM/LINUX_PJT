@@ -24,7 +24,7 @@ pipeline {
                     sh '''
                     sonar-scanner \
                       -Dsonar.projectKey=$SONAR_PROJECT_KEY \
-                      -Dsonar.sources=. \
+                      -Dsonar.sources=./grass \
                       -Dsonar.host.url=$SONAR_URL \
                       -Dsonar.login=$SONAR_TOKEN
                     '''
